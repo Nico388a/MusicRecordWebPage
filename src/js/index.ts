@@ -26,12 +26,14 @@ let vue = new Vue({
     methods: {
         getAll(){
             getAll(resp=> {
-                this.records = resp.data;
-                this.greeting = this.records.toString();
+                this.records = resp.data;    
             });
         }
     }
 });
+
+vue.getAll();
+
 
 function getAll(onSuccess:(resp:AxiosResponse<any>)=>void) {
     handlePromise(axios.get<IRecord[]>(baseUrl), onSuccess);
