@@ -20,14 +20,24 @@
   <div id="app">
     <input v-model="name" placeholder="Name">
     <button v-on:click="sayHello()" class="btn btn-primary">Say hello</button>
-    <div>{{ greeting }}</div>
 
-    <table>
-      <td>
-      <th>
-        Title, Artist, duaration, YearOfPublication TEST
-      </th>
-      </td>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Artist</th>
+          <th>Duration</th>
+          <th>Year of Publication</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="record in records">
+          <td>{{ record.title }}</td>
+          <td>{{ record.artist }}</td>
+          <td>{{ record.duration }}</td>
+          <td>{{ record.yearOfPublication }}</td>
+        </tr>
+      </tbody>
     </table>
   </div>
 
