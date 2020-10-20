@@ -16,11 +16,19 @@
 </head>
 
 <body>
-  <h1>Hello</h1>
+  <h1>MusicRecord</h1>
   <div id="app">
     <input v-model="name" placeholder="Name">
     <button v-on:click="sayHello()" class="btn btn-primary">Say hello</button>
     <div>{{ greeting }}</div>
+
+    <table>
+      <td>
+      <th>
+        Title, Artist, duaration, YearOfPublication
+      </th>
+      </td>
+    </table>
   </div>
 
   <script src="bundle.js"></script>
