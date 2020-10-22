@@ -7,7 +7,7 @@ import axios, {
 let baseUrl = "https://pairprojectmusicrecordsrest20201020113611.azurewebsites.net/api/MusicRecords"
 
 interface IRecord{
-    Title:string,
+    title:string,
     artist:string,
     duration:number,
     yearOfPublication:number
@@ -21,13 +21,30 @@ let vue = new Vue({
     data: {
         name: "",
         greeting: "",
+        record: {},
         records: []
     },
     methods: {
         getAll(){
-            getAll(resp=> {
+            getAll(baseUrl, resp=> {
                 this.records = resp.data;    
             });
+        },
+        search(){
+            let record:IRecord = this.record;
+            let url = baseUrl + "/search?";
+
+            if(record.title != undefined)
+                url = url + "&Title=" + record.title;
+            if(record.artist != undefined)
+                url = url + "&Artist=" + record.artist;
+            if(record.duration > 0)
+                url = url + "&MaxDuration=" + record.duration;
+            if(record.yearOfPublication > 0)
+                url = url + "&YearOfPublication=" + record.yearOfPublication;
+
+            console.log(url);
+            getAll(url, resp => this.records = resp.data);
         }
     }
 });
@@ -35,8 +52,12 @@ let vue = new Vue({
 vue.getAll();
 
 
-function getAll(onSuccess:(resp:AxiosResponse<any>)=>void) {
-    handlePromise(axios.get<IRecord[]>(baseUrl), onSuccess);
+function getAll(url:string, onSuccess:(resp:AxiosResponse<any>)=>void) {
+    handlePromise(axios.get<IRecord[]>(url), onSuccess);
+}
+
+function get(url:string, onSuccess:(resp:AxiosResponse<any>)=>void) {
+    
 }
 
 function handlePromise(promise:Promise<any>, onSuccess:(resp:AxiosResponse<any>)=>void) {
