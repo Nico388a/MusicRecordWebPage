@@ -26,7 +26,7 @@ let vue = new Vue({
     },
     methods: {
         getAll(){
-            getAll(baseUrl, resp=> {
+            get(baseUrl, resp=> {
                 this.records = resp.data;    
             });
         },
@@ -44,7 +44,7 @@ let vue = new Vue({
                 url = url + "&YearOfPublication=" + record.yearOfPublication;
 
             console.log(url);
-            getAll(url, resp => this.records = resp.data);
+            get(url, resp => this.records = resp.data);
         }
     }
 });
@@ -52,12 +52,8 @@ let vue = new Vue({
 vue.getAll();
 
 
-function getAll(url:string, onSuccess:(resp:AxiosResponse<any>)=>void) {
-    handlePromise(axios.get<IRecord[]>(url), onSuccess);
-}
-
 function get(url:string, onSuccess:(resp:AxiosResponse<any>)=>void) {
-    
+    handlePromise(axios.get<IRecord[]>(url), onSuccess);
 }
 
 function handlePromise(promise:Promise<any>, onSuccess:(resp:AxiosResponse<any>)=>void) {
