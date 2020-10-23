@@ -19,12 +19,20 @@
   <h1>MusicRecord</h1>
   <div id="app">
     <input v-model="record.title" placeholder="Title" id="title">
-    <input v-model="record.artist" placeholder="Artist">
-    <input v-model="record.duration" placeholder="Duration" type="number">
-    <input v-model="record.yearOfPublication" placeholder="Year Of Publication" type="number">
+    <input v-model="record.artist" placeholder="Artist" id="artist">
+    <input v-model="record.duration" placeholder="Duration" type="number" id="duration">
+    <input v-model="record.yearOfPublication" placeholder="Year Of Publication" type="number" id="year of publication">
     <button v-on:click="search()" class="btn btn-primary" id="search button">Search</button>
-    <button v-on:click="post()" class="btn btn-primary">Add</button>
+    <button v-on:click="post()" class="btn btn-primary" id="add button">Add</button>
 
+    <br/>
+
+    <input v-model="deleteRecord.title" placeholder="Title">
+    <input v-model="deleteRecord.artist" placeholder="Artist">
+    <button v-on:click="remove()" class="btn btn-warning">Delete</button>
+    <span v-if="deleted != undefined">{{ deleted }}</span>
+
+    <div v-if="loading != undefined">{{ loading }}</div>
     <table id="musicList" class="table" v-if="records.length">
       <thead>
         <tr>

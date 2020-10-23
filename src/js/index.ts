@@ -22,7 +22,10 @@ let vue = new Vue({
         name: "",
         greeting: "",
         record: {title:"", artist: "", duration:0, yearOfPublication:0},
-        records: []
+        deleteRecord: {},
+        records: [],
+        loading: "",
+        deleted: ""
     },
     methods: {
         getAll(){
@@ -34,9 +37,9 @@ let vue = new Vue({
             let record:IRecord = this.record;
             let url = baseUrl + "/search?";
 
-            if(record.title != undefined)
+            if(record.title != undefined && record.title != "")
                 url = url + "&Title=" + record.title;
-            if(record.artist != undefined)
+            if(record.artist != undefined && record.artist != "")
                 url = url + "&Artist=" + record.artist;
             if(record.duration > 0)
                 url = url + "&MaxDuration=" + record.duration;
@@ -51,12 +54,28 @@ let vue = new Vue({
         },
         post(){
             post(formatInput(this.record), resp => this.getAll());
+        },
+        remove(){
+            let record:IRecord = this.deleteRecord;
+            let url = baseUrl + "/delete?";
+
+            if(record.title != undefined && record.title != "")
+                url = url + "&Title=" + record.title;
+            if(record.artist != undefined && record.artist != "")
+                url = url + "&Artist=" + record.artist;   
+
+            console.log(url);
+            remove(url, resp => {
+                this.deleted = "Deleted items: " + resp.data;
+                this.getAll();
+            });
         }
     }
 });
 
 vue.getAll();
-
+vue.loading = undefined;
+vue.deleted = undefined;
 
 function get(url:string, onSuccess:(resp:AxiosResponse<any>)=>void) {
     handlePromise(axios.get<IRecord[]>(url), onSuccess);
@@ -66,9 +85,15 @@ function post(data:IRecord, onSuccess:(resp:AxiosResponse<any>)=>void) {
     handlePromise(axios.post(baseUrl, data), onSuccess);
 }
 
+function remove(url:string, onSuccess:(resp:AxiosResponse<any>)=>void){
+    handlePromise(axios.delete<number>(url), onSuccess);
+}
+
 function handlePromise(promise:Promise<any>, onSuccess:(resp:AxiosResponse<any>)=>void) {
+    vue.loading = "Loading..."
     promise.then((response:AxiosResponse<any>) => {
         onSuccess(response);
+        vue.loading = undefined;
     })
     .catch((error:AxiosError)=>{
         alert(error.message);
