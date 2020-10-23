@@ -28,9 +28,9 @@
     <br/>
 
     <input v-model="deleteRecord.title" placeholder="Title">
-    <input v-model="deleteRecord.artist" placeholder="Artist">
-    <button v-on:click="remove()" class="btn btn-warning">Delete</button>
-    <span v-if="deleted != undefined">{{ deleted }}</span>
+    <input v-model="deleteRecord.artist" placeholder="Artist" id="deleteArtist">
+    <button v-on:click="remove()" class="btn btn-warning" id="deleteButton">Delete</button>
+    <span v-if="deleted != undefined" id="deleteText">{{ deleted }}</span>
 
     <div v-if="loading != undefined">{{ loading }}</div>
     <table id="musicList" class="table" v-if="records.length">
