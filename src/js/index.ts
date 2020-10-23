@@ -21,7 +21,7 @@ let vue = new Vue({
     data: {
         name: "",
         greeting: "",
-        record: {},
+        record: {title:"", artist: "", duration:0, yearOfPublication:0},
         records: []
     },
     methods: {
@@ -48,6 +48,9 @@ let vue = new Vue({
         },
         clear(){
             this.records = [];
+        },
+        post(){
+            post(formatInput(this.record), resp => this.getAll());
         }
     }
 });
@@ -59,6 +62,10 @@ function get(url:string, onSuccess:(resp:AxiosResponse<any>)=>void) {
     handlePromise(axios.get<IRecord[]>(url), onSuccess);
 }
 
+function post(data:IRecord, onSuccess:(resp:AxiosResponse<any>)=>void) {
+    handlePromise(axios.post(baseUrl, data), onSuccess);
+}
+
 function handlePromise(promise:Promise<any>, onSuccess:(resp:AxiosResponse<any>)=>void) {
     promise.then((response:AxiosResponse<any>) => {
         onSuccess(response);
@@ -66,4 +73,9 @@ function handlePromise(promise:Promise<any>, onSuccess:(resp:AxiosResponse<any>)
     .catch((error:AxiosError)=>{
         alert(error.message);
     });
+}
+
+function formatInput(record:any):IRecord {
+    let output:IRecord = {title:record.title, artist:record.artist, duration:parseFloat(record.duration), yearOfPublication:parseFloat(record.yearOfPublication)};
+    return output;
 }
