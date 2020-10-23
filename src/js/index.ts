@@ -45,6 +45,9 @@ let vue = new Vue({
 
             console.log(url);
             get(url, resp => this.records = resp.data);
+        },
+        clear(){
+            this.records = [];
         }
     }
 });
