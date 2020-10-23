@@ -18,13 +18,12 @@
 <body>
   <h1>MusicRecord</h1>
   <div id="app">
-    <input v-model="record.title" placeholder="Title">
+    <input v-model="record.title" placeholder="Title" id="title">
     <input v-model="record.artist" placeholder="Artist">
     <input v-model="record.duration" placeholder="Duration" type="number">
     <input v-model="record.yearOfPublication" placeholder="Year Of Publication" type="number">
-    <button v-on:click="search()" class="btn btn-primary">Search</button>
+    <button v-on:click="search()" class="btn btn-primary" id="search button">Search</button>
     <button v-on:click="post()" class="btn btn-primary">Add</button>
-
 
     <table id="musicList" class="table" v-if="records.length">
       <thead>
