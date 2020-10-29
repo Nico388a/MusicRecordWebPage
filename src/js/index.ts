@@ -27,9 +27,9 @@ let vue = new Vue({
         records: [],
         loading: "",
         deleted: "",
-        selected: "",
+        selected: undefined,
         selectedData: {},
-        putRecord: {}
+        putRecord: {id:0}
     },
     methods: {
         getAll() {
@@ -82,8 +82,19 @@ let vue = new Vue({
             this.deleteRecord = record;
 
         },
-        update(){
-            this.selectedData.id
+        update() {
+            if (this.selected != undefined) {
+                let id: number = this.selectedData.id;
+                let record: IRecord = this.putRecord;
+                record = formatInput(record);
+
+                console.log(record);
+                
+                put(baseUrl + "/" + id, record, resp => this.getAll());
+            }
+            else{
+                alert("Please select something to change from the list.")
+            }
         }
     }
 });
@@ -102,6 +113,10 @@ function post(data: IRecord, onSuccess: (resp: AxiosResponse<any>) => void) {
 
 function remove(url: string, onSuccess: (resp: AxiosResponse<any>) => void) {
     handlePromise(axios.delete<number>(url), onSuccess);
+}
+
+function put(url: string, data: IRecord, onSuccess: (resp: AxiosResponse<any>) => void) {
+    handlePromise(axios.put(url, data), onSuccess);
 }
 
 function handlePromise(promise: Promise<any>, onSuccess: (resp: AxiosResponse<any>) => void) {
