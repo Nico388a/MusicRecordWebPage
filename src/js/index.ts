@@ -10,7 +10,8 @@ interface IRecord{
     title:string,
     artist:string,
     duration:number,
-    yearOfPublication:number
+    yearOfPublication:number,
+    id:number
 }
 
 let vue = new Vue({
@@ -21,11 +22,12 @@ let vue = new Vue({
     data: {
         name: "",
         greeting: "",
-        record: {title:"", artist: "", duration:0, yearOfPublication:0},
+        record: {title:"", artist: "", duration:0, yearOfPublication:0, id:0},
         deleteRecord: {},
         records: [],
         loading: "",
-        deleted: ""
+        deleted: "",
+        selected: ""
     },
     methods: {
         getAll(){
@@ -69,6 +71,11 @@ let vue = new Vue({
                 this.deleted = "Deleted items: " + resp.data;
                 this.getAll();
             });
+        },
+        displaySelected(record:IRecord){
+            console.log(record);
+            
+
         }
     }
 });
