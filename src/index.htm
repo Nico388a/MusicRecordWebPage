@@ -26,7 +26,7 @@
     <button v-on:click="search()" class="btn btn-primary" id="search button">Search</button>
     <button v-on:click="post()" class="btn btn-primary" id="add button">Add</button>
 
-    <br/>
+    <br />
 
     <h3>Delete</h3>
     <input v-model="deleteRecord.title" placeholder="Title">
@@ -34,10 +34,15 @@
     <button v-on:click="remove()" class="btn btn-warning" id="deleteButton">Delete</button>
     <span v-if="deleted != undefined" id="deleteText">{{ deleted }}</span>
 
-    <br/>
+    <br />
 
     <h3>Put</h3>
     <div>{{ selected }}</div>
+    <input v-model="putRecord.title" placeholder="Title">
+    <input v-model="putRecord.artist" placeholder="Artist">
+    <input v-model="putRecord.duration" placeholder="Duration" type="number">
+    <input v-model="putRecord.yearOfPublication" placeholder="Year Of Publication" type="number">
+    <button v-on:click="update()" class="btn btn-primary">Update</button>
 
     <h3>Records</h3>
     <div v-if="loading != undefined">{{ loading }}</div>
