@@ -39,11 +39,11 @@
     <h3>Put</h3>
     <div v-if="selected != undefined">{{ selected }}</div>
     <div v-else>Nothing Selected</div>
-    <input v-model="putRecord.title" placeholder="Title">
+    <input v-model="putRecord.title" placeholder="Title" id="putTitle">
     <input v-model="putRecord.artist" placeholder="Artist">
     <input v-model="putRecord.duration" placeholder="Duration" type="number">
     <input v-model="putRecord.yearOfPublication" placeholder="Year Of Publication" type="number">
-    <button v-on:click="update()" class="btn btn-primary">Update</button>
+    <button v-on:click="update()" class="btn btn-primary" id="update button">Update</button>
 
     <h3>Records</h3>
     <div v-if="loading != undefined">{{ loading }}</div>
@@ -58,7 +58,7 @@
       </thead>
       <tbody>
         <tr v-for="record in records" v-on:click="displaySelected(record)">
-          <td>{{ record.title }}</td>
+          <td id="titleCol">{{ record.title }}</td>
           <td>{{ record.artist }}</td>
           <td>{{ record.duration }}</td>
           <td>{{ record.yearOfPublication }}</td>

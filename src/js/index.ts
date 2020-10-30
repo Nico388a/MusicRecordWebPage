@@ -29,7 +29,7 @@ let vue = new Vue({
         deleted: "",
         selected: undefined,
         selectedData: {},
-        putRecord: {id:0}
+        putRecord: {title:"", artist: "", duration: 0, yearOfPublication: 0, id:0}
     },
     methods: {
         getAll() {
